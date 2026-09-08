@@ -3,6 +3,7 @@
  */
 export const ERROR_CODES = [
   'INVALID_PAYLOAD',
+  'ROUTE_NOT_FOUND',
   'EMPTY_CART',
   'PRODUCT_NOT_FOUND',
   'OUT_OF_STOCK',

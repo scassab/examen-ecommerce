@@ -14,6 +14,7 @@
     "apps/*"
   ],
   "scripts": {
+    "dev:backend": "npm run dev -w @ecommerce/backend",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "test:coverage": "npm run test:coverage --workspaces --if-present",
