@@ -1,0 +1,22 @@
+.product-card {
+  height: 100%;
+
+  &__badges {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1rem 1rem 0;
+  }
+
+  &__name {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  &__price {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+}

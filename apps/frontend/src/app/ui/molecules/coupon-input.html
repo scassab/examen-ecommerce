@@ -1,0 +1,38 @@
+<div class="coupon">
+  <label class="coupon__label" for="coupon-code">Cupón de descuento</label>
+
+  <div class="coupon__controls">
+    <input
+      pInputText
+      id="coupon-code"
+      name="couponCode"
+      placeholder="WELCOME2026"
+      autocomplete="off"
+      [ngModel]="code()"
+      (ngModelChange)="onCodeChange($event)"
+      [attr.disabled]="disabled() ? '' : null"
+      (keyup.enter)="onApply()"
+    />
+
+    <p-button
+      label="Aplicar"
+      icon="pi pi-check"
+      [disabled]="!canApply() || disabled()"
+      (onClick)="onApply()"
+    />
+
+    @if (status() !== 'NOT_PROVIDED') {
+      <p-button
+        icon="pi pi-times"
+        severity="secondary"
+        [text]="true"
+        ariaLabel="Quitar el cupón"
+        (onClick)="onClear()"
+      />
+    }
+  </div>
+
+  @if (feedback(); as message) {
+    <p-message [severity]="message.severity" styleClass="coupon__feedback">{{ message.text }}</p-message>
+  }
+</div>

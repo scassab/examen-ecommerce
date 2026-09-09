@@ -1,0 +1,28 @@
+<div class="cart-line">
+  <div class="cart-line__info">
+    <span class="cart-line__name">{{ line().name }}</span>
+    <span class="cart-line__unit">{{ line().unitPriceInCents | cents }} c/u</span>
+  </div>
+
+  <p-inputnumber
+    [ngModel]="line().quantity"
+    (ngModelChange)="onQuantityChange($event)"
+    [showButtons]="true"
+    buttonLayout="horizontal"
+    incrementButtonIcon="pi pi-plus"
+    decrementButtonIcon="pi pi-minus"
+    inputStyleClass="cart-line__quantity-input"
+    [ariaLabel]="'Cantidad de ' + line().name"
+  />
+
+  <span class="cart-line__subtotal">{{ line().lineSubtotalInCents | cents }}</span>
+
+  <p-button
+    icon="pi pi-trash"
+    severity="danger"
+    [text]="true"
+    [rounded]="true"
+    [ariaLabel]="'Quitar ' + line().name + ' del carrito'"
+    (onClick)="onRemove()"
+  />
+</div>
