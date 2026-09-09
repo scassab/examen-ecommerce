@@ -10,9 +10,16 @@ module.exports = {
   moduleNameMapper: {
     '^@ecommerce/shared$': '<rootDir>/../../packages/shared/src/index.ts',
   },
-  // main.ts solo arranca el proceso: se excluye porque probarlo exigiria
-  // levantar un servidor real sin aportar valor sobre las pruebas de createApp.
-  collectCoverageFrom: ['src/**/*.ts', '!src/main.ts'],
+  // Se excluye el codigo de arranque y de esquema, que no contiene reglas: main.ts
+  // solo levanta el proceso, y data-source, migraciones y semillas se verifican
+  // ejecutandolos contra PostgreSQL y en las pruebas de integracion.
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/main.ts',
+    '!src/infrastructure/persistence/typeorm/data-source.ts',
+    '!src/infrastructure/persistence/typeorm/migrations/**',
+    '!src/infrastructure/persistence/typeorm/seeds/run-seed.ts',
+  ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: { branches: 80, functions: 80, lines: 80, statements: 80 },
