@@ -1,3 +1,8 @@
+<app-discount-cap-alert
+  [visible]="capReached()"
+  [maxDiscountPercentage]="maxDiscountPercentage()"
+/>
+
 <div class="grid checkout">
   <div class="col-12 lg:col-8">
     <app-product-grid
