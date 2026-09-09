@@ -62,6 +62,11 @@ export class FakeEntityManager {
 export class FakeDataSource {
   public transactions = 0;
 
+  /**
+   * El campo se llama `manager` a propósito: la raíz de composición construye
+   * los repositorios a partir de `dataSource.manager`, así que el doble tiene
+   * que exponerlo con ese mismo nombre.
+   */
   public constructor(private readonly manager: FakeEntityManager) {}
 
   public asDataSource(): DataSource {
