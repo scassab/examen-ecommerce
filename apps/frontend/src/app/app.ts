@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
 
 import { SessionService } from './core/session/session.service';
+import { SiteFooter } from './ui/organisms/site-footer';
 
 /**
  * Marco de la aplicación: cabecera con la sesión simulada y salida del router.
@@ -13,7 +14,7 @@ import { SessionService } from './core/session/session.service';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AvatarModule],
+  imports: [RouterOutlet, AvatarModule, SiteFooter],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
