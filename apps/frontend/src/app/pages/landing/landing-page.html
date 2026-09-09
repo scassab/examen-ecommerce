@@ -1,0 +1,91 @@
+<p-card styleClass="landing__intro">
+  <h1 class="landing__title">Core E-Commerce con Sistema de Descuentos Acumulativos</h1>
+
+  <p class="landing__text">
+    El objetivo es construir una aplicación <strong>full stack modular</strong> que permita
+    gestionar un carrito de compras y aplicar un <strong>motor de descuentos acumulativos</strong>
+    de manera confiable: descuentos en cascada, con precedencia definida y un tope absoluto
+    infranqueable del 35%.
+  </p>
+
+  <p class="landing__text">
+    La kata evalúa el <strong>criterio de ingeniería por encima de la cantidad de código</strong>.
+    Esto es lo que se puso en juego y dónde se puede verificar:
+  </p>
+
+  <ul class="landing__criteria">
+    <li>
+      <strong>Arquitectura fundamentada:</strong> hexagonal en el backend, con el motor de
+      descuentos aislado de la persistencia y del transporte.
+    </li>
+    <li>
+      <strong>Patrones para el desacoplamiento:</strong> Strategy en cada regla, Factory para su
+      precedencia, Repository para los puertos y Observer en el estado del carrito.
+    </li>
+    <li>
+      <strong>Tipado robusto:</strong> TypeScript estricto de extremo a extremo, con contratos
+      compartidos entre backend y frontend y <code>any</code> prohibido por el linter.
+    </li>
+    <li>
+      <strong>Modularidad:</strong> Atomic Design en la interfaz — átomos, moléculas, organismos y
+      páginas — con componentes presentacionales que no conocen el estado.
+    </li>
+    <li>
+      <strong>Estrategia de pruebas:</strong> cobertura por encima del umbral exigido del 80%, con
+      énfasis en los casos de borde del motor de descuentos.
+    </li>
+    <li>
+      <strong>Gobernanza de IA:</strong> uso auditado y documentado en
+      <code>docs/ia.md</code>, incluidas las sugerencias que se rechazaron y por qué.
+    </li>
+  </ul>
+
+  <figure class="schema">
+    <img
+      class="schema__image"
+      src="modelo-relacional.png"
+      alt="Modelo relacional: categories y products, coupons, orders con order_items y order_discounts, y sus claves foráneas"
+      width="1120"
+      height="343"
+    />
+    <figcaption class="schema__caption">
+      Modelo relacional del checkout. La referencia de <code>orders</code> a <code>coupons</code>
+      va punteada porque el código se guarda como dato histórico, sin clave foránea: borrar un
+      cupón no puede reescribir compras pasadas.
+    </figcaption>
+  </figure>
+
+  <p class="landing__text">
+    El modelo separa el <strong>catálogo</strong> de la <strong>orden confirmada</strong>: cada
+    línea comprada congela nombre y precio, y cada regla de descuento aplicada se guarda en su
+    propia fila con la base sobre la que se calculó. Así una orden se audita sin volver a ejecutar
+    el motor. El dinero se persiste en <strong>centavos enteros</strong>, nunca en decimales.
+  </p>
+</p-card>
+
+<div class="grid landing__stack">
+  <div class="col-12 md:col-6">
+    <p-card>
+      <h2 class="landing__subtitle">Backend</h2>
+      <p class="landing__text">
+        <strong>Node.js con TypeScript</strong> sobre <strong>arquitectura hexagonal</strong>. El motor de descuentos vive en el dominio y no conoce Express ni
+        TypeORM: usa <strong>Strategy</strong> por regla y <strong>Factory</strong> para su
+        precedencia. El checkout corre en una transacción con bloqueo pesimista
+        (<code>SELECT … FOR UPDATE</code>).
+      </p>
+    </p-card>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <p-card>
+      <h2 class="landing__subtitle">Frontend</h2>
+      <p class="landing__text">
+        <strong>Angular</strong> con componentes <strong>standalone</strong>, señales y
+        <strong>Atomic Design</strong>, apoyado en <strong>PrimeNG</strong> y
+        <strong>PrimeFlex</strong>. El carrito es un store reactivo y los descuentos
+        <strong>nunca se recalculan aquí</strong>: la pantalla muestra exactamente el desglose que
+        devolvió el servidor.
+      </p>
+    </p-card>
+  </div>
+</div>
