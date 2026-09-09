@@ -1,0 +1,31 @@
+<section class="catalog" aria-label="Catálogo de productos">
+  <h2 class="catalog__title">Catálogo</h2>
+
+  @if (loading()) {
+    <div class="catalog__state">
+      <p-progress-spinner strokeWidth="4" [style]="{ width: '3rem', height: '3rem' }" />
+      <p>Cargando productos…</p>
+    </div>
+  } @else if (errorMessage(); as message) {
+    <div class="catalog__state">
+      <p-message severity="error">{{ message }}</p-message>
+      <p-button label="Reintentar" icon="pi pi-refresh" (onClick)="retry.emit()" />
+    </div>
+  } @else if (products().length === 0) {
+    <div class="catalog__state">
+      <p-message severity="info">No hay productos disponibles.</p-message>
+    </div>
+  } @else {
+    <div class="grid">
+      @for (product of products(); track product.id) {
+        <div class="col-12 sm:col-6 xl:col-4">
+          <app-product-card
+            [product]="product"
+            [quantityInCart]="quantityOf(product.id)"
+            (add)="add.emit($event)"
+          />
+        </div>
+      }
+    </div>
+  }
+</section>

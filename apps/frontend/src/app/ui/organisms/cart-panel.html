@@ -1,0 +1,56 @@
+<p-card styleClass="cart-panel">
+  <ng-template #title>
+    <div class="cart-panel__header">
+      <span>Tu carrito</span>
+      @if (quoting()) {
+        <span class="cart-panel__status" role="status">Actualizando…</span>
+      }
+    </div>
+  </ng-template>
+
+  @if (lines().length === 0) {
+    <p class="cart-panel__empty">
+      Aún no has agregado productos. Elige algo del catálogo para ver tu ahorro.
+    </p>
+  } @else {
+    <div class="cart-panel__lines">
+      @for (line of lines(); track line.productId) {
+        <app-cart-line
+          [line]="line"
+          (quantityChange)="onQuantityChange(line.productId, $event)"
+          (remove)="remove.emit($event)"
+        />
+      }
+    </div>
+
+    <div class="cart-panel__coupon">
+      <app-coupon-input
+        [status]="couponStatus()"
+        [disabled]="submitting()"
+        (apply)="applyCoupon.emit($event)"
+        (clear)="clearCoupon.emit()"
+      />
+    </div>
+
+    @if (quoting()) {
+      <p-progressbar mode="indeterminate" [style]="{ height: '3px' }" />
+    }
+
+    <app-discount-summary [quote]="quote()" [subtotalInCents]="subtotalInCents()" />
+
+    @if (errorMessage(); as message) {
+      <p-message severity="error" styleClass="w-full mt-3">{{ message }}</p-message>
+    }
+
+    <ng-template #footer>
+      <p-button
+        label="Confirmar compra"
+        icon="pi pi-credit-card"
+        styleClass="w-full"
+        [loading]="submitting()"
+        [disabled]="submitting() || quoting()"
+        (onClick)="checkout.emit()"
+      />
+    </ng-template>
+  }
+</p-card>
