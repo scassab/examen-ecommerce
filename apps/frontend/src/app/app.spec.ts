@@ -36,6 +36,15 @@ describe('App', () => {
     expect(header.querySelector('p-avatar')?.textContent).toContain('SC');
   });
 
+  it('cierra la pagina con el pie de derechos reservados', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain(
+      'Todos los derechos son reservados.',
+    );
+  });
+
   it('deja un hueco para que el router monte la pagina', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();

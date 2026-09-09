@@ -1,0 +1,16 @@
+.site-footer {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem var(--app-gutter, 1rem) 0.75rem;
+  // Se apoya en el mismo azul primario del tema, así que si mañana cambia la
+  // paleta el pie la sigue sin tocar este archivo.
+  color: var(--p-primary-500, #3b82f6);
+
+  &__text {
+    max-width: var(--app-max-width, 1200px);
+    font-size: 0.85rem;
+    text-align: center;
+    // Un aviso legal nunca debe partirse mal en móvil.
+    text-wrap: balance;
+  }
+}

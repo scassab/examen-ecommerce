@@ -1,3 +1,11 @@
+:host {
+  // Columna a pantalla completa: con poco contenido el pie queda abajo del todo
+  // en lugar de flotando a media pantalla.
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .app-header {
   // Cabecera propia en lugar de p-toolbar: la barra de PrimeNG envuelve el
   // contenido en contenedores que no ceden el ancho completo, y forzarlos desde
@@ -53,10 +61,11 @@
 
 .app-main {
   display: block;
+  flex: 1 0 auto;
   width: 100%;
   max-width: var(--app-max-width, 1200px);
   margin: 0 auto;
-  padding: 1.5rem var(--app-gutter, 1rem) 3rem;
+  padding: 1.5rem var(--app-gutter, 1rem) 0.25rem;
 }
 
 :host ::ng-deep .app-header .p-avatar {
