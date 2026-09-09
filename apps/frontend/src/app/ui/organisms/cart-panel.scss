@@ -1,0 +1,30 @@
+.cart-panel {
+  position: sticky;
+  top: 1rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  &__status {
+    font-size: 0.8rem;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  &__empty {
+    margin: 0;
+    opacity: 0.75;
+  }
+
+  &__lines {
+    margin-bottom: 1rem;
+  }
+
+  &__coupon {
+    margin-bottom: 1rem;
+  }
+}

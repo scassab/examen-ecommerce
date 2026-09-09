@@ -1,0 +1,31 @@
+<div class="grid checkout">
+  <div class="col-12 lg:col-8">
+    <app-product-grid
+      [products]="products()"
+      [quantities]="quantities()"
+      [loading]="catalogLoading()"
+      [errorMessage]="catalogError()"
+      (add)="onAdd($event)"
+      (retry)="onRetryCatalog()"
+    />
+  </div>
+
+  <div class="col-12 lg:col-4">
+    <app-cart-panel
+      [lines]="lines()"
+      [subtotalInCents]="subtotalInCents()"
+      [quote]="quote()"
+      [couponStatus]="couponStatus()"
+      [quoting]="quoting()"
+      [submitting]="submitting()"
+      [errorMessage]="checkoutError()"
+      (quantityChange)="onQuantityChange($event)"
+      (remove)="onRemove($event)"
+      (applyCoupon)="onApplyCoupon($event)"
+      (clearCoupon)="onClearCoupon()"
+      (checkout)="onCheckout()"
+    />
+  </div>
+</div>
+
+<app-order-confirmation [order]="lastOrder()" (dismissed)="onCloseConfirmation()" />
