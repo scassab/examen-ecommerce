@@ -1,0 +1,28 @@
+/**
+ * Estilos globales.
+ *
+ * PrimeNG aporta los componentes y PrimeFlex la rejilla y las utilidades, así
+ * que aquí solo quedan los tokens propios y unos pocos ajustes de base.
+ */
+:root {
+  --app-surface: #f5f7fa;
+  --app-max-width: 1200px;
+  --app-radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--app-surface);
+  font-family:
+    Inter,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
