@@ -32,11 +32,11 @@ const bootstrap = async (): Promise<void> => {
   const dataSource = createDataSource(config.database);
 
   await dataSource.initialize();
-  console.info(`[api] connected to ${config.database.name} at ${config.database.host}`);
+  console.info(`✅ connected to database ${config.database.name} at ${config.database.host}`);
 
   const app = createApp(config, buildApiDependencies(dataSource));
   const server = app.listen(config.api.port, () => {
-    console.info(`[api] listening on http://localhost:${config.api.port}`);
+    console.info(`🚀 listening on http://localhost:${config.api.port}`);
   });
 
   process.on('SIGINT', () => shutdown(server, dataSource));

@@ -68,6 +68,12 @@
   padding: 1.5rem var(--app-gutter, 1rem) 0.25rem;
 }
 
+// El boton de entrada hereda el blanco de la barra en lugar del azul primario,
+// que sobre fondo azul seria ilegible.
+:host ::ng-deep .app-header__enter {
+  color: #fff;
+}
+
 :host ::ng-deep .app-header .p-avatar {
   background: rgb(255 255 255 / 22%);
   color: #fff;
