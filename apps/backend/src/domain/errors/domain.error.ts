@@ -57,3 +57,34 @@ export class InsufficientStockError extends DomainError {
     );
   }
 }
+
+/** Faltante de stock de un producto concreto dentro de un checkout. */
+export interface StockShortage {
+  readonly productId: string;
+  readonly requested: number;
+  readonly available: number;
+}
+
+/**
+ * El checkout no se puede completar porque falta stock.
+ *
+ * Agrega **todos** los faltantes en un solo error en lugar de fallar en el
+ * primero: el cliente necesita corregir el carrito de una vez, no descubrir los
+ * problemas de uno en uno. `InsufficientStockError` sigue existiendo como
+ * invariante del modelo; esta es la versión que viaja al cliente.
+ */
+export class OutOfStockError extends DomainError {
+  public constructor(public readonly shortages: readonly StockShortage[]) {
+    const detail = shortages
+      .map((shortage) => `${shortage.productId} (${shortage.requested}/${shortage.available})`)
+      .join(', ');
+    super('OUT_OF_STOCK', `not enough stock for: ${detail}`);
+  }
+}
+
+/** Se pidió un producto que no está en el catálogo. */
+export class ProductNotFoundError extends DomainError {
+  public constructor(public readonly productIds: readonly string[]) {
+    super('PRODUCT_NOT_FOUND', `unknown products: ${productIds.join(', ')}`);
+  }
+}
