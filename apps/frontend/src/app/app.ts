@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AvatarModule } from 'primeng/avatar';
-import { ToolbarModule } from 'primeng/toolbar';
 
 import { SessionService } from './core/session/session.service';
 
@@ -14,7 +13,7 @@ import { SessionService } from './core/session/session.service';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToolbarModule, AvatarModule],
+  imports: [RouterOutlet, AvatarModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

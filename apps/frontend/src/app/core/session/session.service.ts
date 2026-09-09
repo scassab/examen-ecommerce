@@ -16,8 +16,8 @@ export interface SessionUser {
 @Injectable({ providedIn: 'root' })
 export class SessionService {
   private readonly currentUser = signal<SessionUser>({
-    name: 'Cliente Demo',
-    initials: 'CD',
+    name: 'Sergio Castro',
+    initials: 'SC',
   });
 
   public readonly user = this.currentUser.asReadonly();

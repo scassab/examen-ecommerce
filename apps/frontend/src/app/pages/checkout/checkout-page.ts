@@ -40,6 +40,7 @@ export class CheckoutPage implements OnInit {
 
   protected readonly quote = this.quotes.current;
   protected readonly couponStatus = this.quotes.couponStatus;
+  protected readonly appliedCoupon = this.quotes.couponCode;
   protected readonly quoting = this.quotes.isQuoting;
   protected readonly submitting = this.quotes.isSubmitting;
   protected readonly checkoutError = this.quotes.errorMessage;

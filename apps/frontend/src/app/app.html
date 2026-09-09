@@ -1,18 +1,16 @@
-<p-toolbar styleClass="app-header">
-  <ng-template #start>
+<header class="app-header">
+  <div class="app-header__inner">
     <span class="app-header__brand">
-      <i class="pi pi-shopping-bag"></i>
-      Checkout
+      <i class="pi pi-shopping-bag" aria-hidden="true"></i>
+      E-commerce
     </span>
-  </ng-template>
 
-  <ng-template #end>
     <span class="app-header__user">
       <p-avatar [label]="user().initials" shape="circle" />
       <span class="app-header__user-name">{{ user().name }}</span>
     </span>
-  </ng-template>
-</p-toolbar>
+  </div>
+</header>
 
 <main class="app-main">
   <router-outlet />

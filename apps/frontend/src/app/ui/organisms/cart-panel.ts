@@ -38,6 +38,8 @@ export class CartPanel {
   public readonly subtotalInCents = input.required<number>();
   public readonly quote = input.required<QuoteResponseDto | null>();
   public readonly couponStatus = input<CouponStatus>('NOT_PROVIDED');
+  /** Código de cupón en vigor, para mostrarlo como etiqueta retirable. */
+  public readonly appliedCoupon = input<string | null>(null);
   public readonly quoting = input<boolean>(false);
   public readonly submitting = input<boolean>(false);
   public readonly errorMessage = input<string | null>(null);

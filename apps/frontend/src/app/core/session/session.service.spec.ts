@@ -6,7 +6,7 @@ describe('SessionService', () => {
   it('expone un usuario simulado con nombre e iniciales', () => {
     const service = TestBed.inject(SessionService);
 
-    expect(service.user()).toEqual({ name: 'Cliente Demo', initials: 'CD' });
+    expect(service.user()).toEqual({ name: 'Sergio Castro', initials: 'SC' });
   });
 
   it('expone la sesion como solo lectura', () => {

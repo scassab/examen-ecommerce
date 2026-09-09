@@ -4,7 +4,7 @@
 />
 
 <div class="grid checkout">
-  <div class="col-12 lg:col-8">
+  <div class="col-12 lg:col-7">
     <app-product-grid
       [products]="products()"
       [quantities]="quantities()"
@@ -15,12 +15,13 @@
     />
   </div>
 
-  <div class="col-12 lg:col-4">
+  <div class="col-12 lg:col-5">
     <app-cart-panel
       [lines]="lines()"
       [subtotalInCents]="subtotalInCents()"
       [quote]="quote()"
       [couponStatus]="couponStatus()"
+      [appliedCoupon]="appliedCoupon()"
       [quoting]="quoting()"
       [submitting]="submitting()"
       [errorMessage]="checkoutError()"
