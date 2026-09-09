@@ -1,6 +1,12 @@
+import { CheckoutUseCase } from '../../../src/application/use-cases/checkout.use-case';
+import { ListOrdersUseCase, ListProductsUseCase } from '../../../src/application/use-cases/catalog.use-cases';
+import { QuoteCartUseCase } from '../../../src/application/use-cases/quote-cart.use-case';
 import { DEFAULT_DISCOUNT_CONFIG } from '../../../src/domain/discounts/discount-config';
 import { DiscountEngine } from '../../../src/domain/discounts/discount-engine';
+import { Money } from '../../../src/domain/models/money';
 import { Order } from '../../../src/domain/models/order';
+import { Percentage } from '../../../src/domain/models/percentage';
+import { buildApiDependencies } from '../../../src/infrastructure/composition-root';
 import { CouponEntity, ProductEntity } from '../../../src/infrastructure/persistence/typeorm/entities/catalog.entities';
 import { OrderEntity } from '../../../src/infrastructure/persistence/typeorm/entities/order.entities';
 import { TypeOrmCheckoutUnitOfWork } from '../../../src/infrastructure/persistence/typeorm/repositories/typeorm-checkout.unit-of-work';
@@ -234,5 +240,38 @@ describe('system services', () => {
 
     expect(generator.next()).not.toBe(generator.next());
     expect(generator.next()).toHaveLength(36);
+  });
+});
+
+describe('composition root', () => {
+  it('wires every use case against the TypeORM adapters', () => {
+    const manager = new FakeEntityManager();
+    const dataSource = new FakeDataSource(manager).asDataSource();
+
+    const dependencies = buildApiDependencies(dataSource);
+
+    expect(dependencies.listProducts).toBeInstanceOf(ListProductsUseCase);
+    expect(dependencies.quoteCart).toBeInstanceOf(QuoteCartUseCase);
+    expect(dependencies.checkout).toBeInstanceOf(CheckoutUseCase);
+    expect(dependencies.listOrders).toBeInstanceOf(ListOrdersUseCase);
+  });
+
+  it('accepts an alternative discount configuration without touching the engine', async () => {
+    const manager = new FakeEntityManager(new Map([[ProductEntity, [buildProductEntity()]]]));
+    const dataSource = new FakeDataSource(manager).asDataSource();
+
+    const dependencies = buildApiDependencies(dataSource, {
+      categoryDiscount: { category: 'TECHNOLOGY', percentage: Percentage.fromNumber(50) },
+      volumeDiscount: { threshold: Money.fromCents(10_000), percentage: Percentage.zero() },
+      maxTotalDiscount: Percentage.fromNumber(90),
+    });
+
+    const { breakdown } = await dependencies.quoteCart.execute({
+      items: [{ productId: '11111111-1111-4111-8111-111111111101', quantity: 1 }],
+      couponCode: null,
+    });
+
+    expect(breakdown.maxDiscountPercentage.value).toBe(90);
+    expect(breakdown.totalDiscount.inCents).toBe(64_950);
   });
 });
