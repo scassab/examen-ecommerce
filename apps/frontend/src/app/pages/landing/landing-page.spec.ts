@@ -61,7 +61,7 @@ describe('LandingPage', () => {
     const text = render().textContent ?? '';
 
     expect(text).toContain('Backend');
-    expect(text).toContain('Ports and Adapters');
+    expect(text).toContain('arquitectura hexagonal');
     expect(text).toContain('SELECT … FOR UPDATE');
     expect(text).toContain('Frontend');
     expect(text).toContain('Atomic Design');
