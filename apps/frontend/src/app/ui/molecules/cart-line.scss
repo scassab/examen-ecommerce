@@ -1,0 +1,53 @@
+.cart-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'info remove'
+    'quantity subtotal';
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--p-content-border-color, #e5e7eb);
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr auto auto auto;
+    grid-template-areas: 'info quantity subtotal remove';
+  }
+
+  &__info {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-weight: 600;
+  }
+
+  &__unit {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  &__subtotal {
+    grid-area: subtotal;
+    justify-self: end;
+    font-weight: 700;
+    min-width: 6rem;
+    text-align: right;
+  }
+
+  p-inputnumber {
+    grid-area: quantity;
+  }
+
+  p-button {
+    grid-area: remove;
+    justify-self: end;
+  }
+}
+
+:host ::ng-deep .cart-line__quantity-input {
+  width: 3.5rem;
+  text-align: center;
+}
