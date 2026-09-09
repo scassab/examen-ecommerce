@@ -1,13 +1,15 @@
 /**
  * Estilos globales.
  *
- * PrimeNG aporta los componentes y PrimeFlex la rejilla y las utilidades, así
- * que aquí solo quedan los tokens propios y unos pocos ajustes de base.
+ * PrimeNG aporta los componentes y PrimeFlex la rejilla, así que aquí solo
+ * quedan los tokens propios, la base tipográfica y las reglas que garantizan
+ * que ningún contenido se salga del ancho de la página.
  */
 :root {
-  --app-surface: #f5f7fa;
+  --app-surface: #f4f6fb;
   --app-max-width: 1200px;
   --app-radius: 12px;
+  --app-gutter: 1rem;
 }
 
 * {
@@ -19,10 +21,29 @@ body {
   height: 100%;
   margin: 0;
   background: var(--app-surface);
+  color: var(--p-text-color, #1f2937);
   font-family:
     Inter,
     -apple-system,
     'Segoe UI',
     Roboto,
     sans-serif;
+  // Ninguna pantalla debe desplazarse en horizontal: si algo se desborda, se
+  // recorta aquí en lugar de romper la maquetación entera.
+  overflow-x: hidden;
+}
+
+/**
+ * PrimeFlex compensa el espaciado de sus columnas con márgenes negativos. Dentro
+ * de un contenedor con relleno eso provoca un desbordamiento lateral de 0.5rem,
+ * que es exactamente el "algo se sale del contenedor" clásico de esta rejilla.
+ */
+.grid {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/** Una celda de rejilla nunca debe ensancharse por su contenido. */
+[class*='col-'] {
+  min-width: 0;
 }

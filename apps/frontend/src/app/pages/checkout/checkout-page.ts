@@ -7,6 +7,7 @@ import { CatalogStore } from '../../state/catalog.store';
 import { QuoteStore } from '../../state/quote.store';
 import type { CartLineView } from '../../ui/molecules/cart-line';
 import { CartPanel } from '../../ui/organisms/cart-panel';
+import { DiscountCapAlert } from '../../ui/organisms/discount-cap-alert';
 import { OrderConfirmation } from '../../ui/organisms/order-confirmation';
 import { ProductGrid } from '../../ui/organisms/product-grid';
 
@@ -20,7 +21,7 @@ import { ProductGrid } from '../../ui/organisms/product-grid';
  */
 @Component({
   selector: 'app-checkout-page',
-  imports: [ProductGrid, CartPanel, OrderConfirmation],
+  imports: [ProductGrid, CartPanel, OrderConfirmation, DiscountCapAlert],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './checkout-page.html',
   styleUrl: './checkout-page.scss',
@@ -39,10 +40,13 @@ export class CheckoutPage implements OnInit {
 
   protected readonly quote = this.quotes.current;
   protected readonly couponStatus = this.quotes.couponStatus;
+  protected readonly appliedCoupon = this.quotes.couponCode;
   protected readonly quoting = this.quotes.isQuoting;
   protected readonly submitting = this.quotes.isSubmitting;
   protected readonly checkoutError = this.quotes.errorMessage;
   protected readonly lastOrder = this.quotes.lastOrder;
+  protected readonly capReached = this.quotes.capReached;
+  protected readonly maxDiscountPercentage = this.quotes.maxDiscountPercentage;
 
   /** Adapta las líneas del store a lo que necesita pintar la molécula. */
   protected readonly lines = computed<readonly CartLineView[]>(() =>

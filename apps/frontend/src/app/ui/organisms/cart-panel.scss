@@ -1,12 +1,28 @@
 .cart-panel {
-  position: sticky;
-  top: 1rem;
+  // Se fija solo cuando el panel viaja en su propia columna; en movil queda
+  // debajo del catalogo y fijarlo taparia contenido.
+  @media (min-width: 992px) {
+    position: sticky;
+    top: 1rem;
+  }
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 0.5rem;
+  }
+
+  &__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .pi {
+      // Mayor que el texto del titulo: el icono actua de ancla visual del panel.
+      font-size: 1.6rem;
+      color: var(--p-primary-600, #2563eb);
+    }
   }
 
   &__status {

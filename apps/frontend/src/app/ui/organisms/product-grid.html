@@ -18,7 +18,7 @@
   } @else {
     <div class="grid">
       @for (product of products(); track product.id) {
-        <div class="col-12 sm:col-6 xl:col-4">
+        <div class="col-12 sm:col-6">
           <app-product-card
             [product]="product"
             [quantityInCart]="quantityOf(product.id)"

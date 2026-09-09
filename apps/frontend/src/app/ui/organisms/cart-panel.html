@@ -1,7 +1,10 @@
 <p-card styleClass="cart-panel">
   <ng-template #title>
     <div class="cart-panel__header">
-      <span>Tu carrito</span>
+      <span class="cart-panel__title">
+        <i class="pi pi-shopping-cart" aria-hidden="true"></i>
+        Tu carrito
+      </span>
       @if (quoting()) {
         <span class="cart-panel__status" role="status">Actualizando…</span>
       }
@@ -10,7 +13,7 @@
 
   @if (lines().length === 0) {
     <p class="cart-panel__empty">
-      Aún no has agregado productos. Elige algo del catálogo para ver tu ahorro.
+      Aún no has agregado productos a tu carrito.
     </p>
   } @else {
     <div class="cart-panel__lines">
@@ -26,6 +29,7 @@
     <div class="cart-panel__coupon">
       <app-coupon-input
         [status]="couponStatus()"
+        [appliedCode]="appliedCoupon()"
         [disabled]="submitting()"
         (apply)="applyCoupon.emit($event)"
         (clear)="clearCoupon.emit()"

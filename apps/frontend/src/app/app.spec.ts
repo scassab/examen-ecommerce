@@ -23,7 +23,7 @@ describe('App', () => {
 
     const header = fixture.nativeElement as HTMLElement;
 
-    expect(header.querySelector('.app-header__brand')?.textContent).toContain('Checkout');
+    expect(header.querySelector('.app-header__brand')?.textContent).toContain('E-commerce');
   });
 
   it('identifica al usuario de la sesion simulada', () => {
@@ -32,8 +32,8 @@ describe('App', () => {
 
     const header = fixture.nativeElement as HTMLElement;
 
-    expect(header.textContent).toContain('Cliente Demo');
-    expect(header.querySelector('p-avatar')?.textContent).toContain('CD');
+    expect(header.textContent).toContain('Sergio Castro');
+    expect(header.querySelector('p-avatar')?.textContent).toContain('SC');
   });
 
   it('deja un hueco para que el router monte la pagina', () => {

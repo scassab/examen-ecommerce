@@ -168,6 +168,38 @@ describe('CheckoutPage', () => {
     expect(textOf()).toContain('Aún no has agregado productos');
   });
 
+  it('no muestra la alerta del tope mientras el servidor no lo confirme', () => {
+    addFirstProduct();
+    http.expectOne(API_ROUTES.quote).flush(quote);
+    fixture.detectChanges();
+
+    expect(
+      (fixture.nativeElement as HTMLElement).querySelector('[data-testid="discount-cap-alert"]'),
+    ).toBeNull();
+  });
+
+  it('muestra la alerta persistente cuando el servidor reporta el tope', () => {
+    addFirstProduct();
+    http.expectOne(API_ROUTES.quote).flush({
+      ...quote,
+      capAdjustmentInCents: 22_250,
+      totalDiscountInCents: 45_465,
+      totalInCents: 84_435,
+      effectiveDiscountPercentage: 35,
+      capReached: true,
+    });
+    fixture.detectChanges();
+
+    const alert = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="discount-cap-alert"]',
+    );
+
+    expect(alert?.textContent).toContain(
+      '¡Enhorabuena! Has alcanzado el límite máximo de ahorro permitido (35%)',
+    );
+    expect(textOf()).toContain('Ajuste por límite de descuento');
+  });
+
   it('avisa cuando el catalogo no se pudo cargar', () => {
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const failed = TestBed.createComponent(CheckoutPage);

@@ -84,6 +84,16 @@ export class QuoteStore {
   /** El tope solo se anuncia cuando el servidor confirma que se alcanzó. */
   public readonly capReached = computed(() => this.quote()?.capReached ?? false);
 
+  /**
+   * Tope vigente, tal como lo informa el backend.
+   *
+   * No se escribe 35 en el frontend: el número es una regla de negocio y su
+   * dueño es el servidor. Cambiarla allí actualiza el mensaje sin tocar la UI.
+   */
+  public readonly maxDiscountPercentage = computed(
+    () => this.quote()?.maxDiscountPercentage ?? 0,
+  );
+
   private readonly request = computed<QuoteRequestKey>(() => ({
     items: this.cart.requestItems(),
     couponCode: this.coupon(),

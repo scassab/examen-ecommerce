@@ -1,0 +1,14 @@
+@if (visible()) {
+  <aside class="cap-alert" role="status" aria-live="polite" data-testid="discount-cap-alert">
+    <span class="cap-alert__icon" aria-hidden="true">
+      <i class="pi pi-verified"></i>
+    </span>
+
+    <div class="cap-alert__body">
+      <strong class="cap-alert__title">{{ message() }}</strong>
+      <span class="cap-alert__hint">
+        Los descuentos adicionales ya no reducen el total: tu ahorro se ha truncado en el máximo.
+      </span>
+    </div>
+  </aside>
+}
