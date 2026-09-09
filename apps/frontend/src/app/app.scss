@@ -1,0 +1,80 @@
+:host {
+  // Columna a pantalla completa: con poco contenido el pie queda abajo del todo
+  // en lugar de flotando a media pantalla.
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  // Cabecera propia en lugar de p-toolbar: la barra de PrimeNG envuelve el
+  // contenido en contenedores que no ceden el ancho completo, y forzarlos desde
+  // fuera dependía de nombres internos que pueden cambiar entre versiones.
+  background: var(--p-primary-600, #2563eb);
+  color: #fff;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 18%);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    max-width: var(--app-max-width, 1200px);
+    margin: 0 auto;
+    padding: 0.85rem var(--app-gutter, 1rem);
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    min-width: 0;
+
+    .pi {
+      // El icono manda sobre el texto: es la marca de la tienda.
+      font-size: 1.75rem;
+    }
+  }
+
+  &__user {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    margin-left: auto;
+  }
+
+  &__user-name {
+    // Se oculta en móvil: el avatar ya identifica la sesión y así la cabecera
+    // nunca empuja el ancho de la página.
+    display: none;
+    white-space: nowrap;
+
+    @media (min-width: 576px) {
+      display: inline;
+    }
+  }
+}
+
+.app-main {
+  display: block;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--app-max-width, 1200px);
+  margin: 0 auto;
+  padding: 1.5rem var(--app-gutter, 1rem) 0.25rem;
+}
+
+// El boton de entrada hereda el blanco de la barra en lugar del azul primario,
+// que sobre fondo azul seria ilegible.
+:host ::ng-deep .app-header__enter {
+  color: #fff;
+}
+
+:host ::ng-deep .app-header .p-avatar {
+  background: rgb(255 255 255 / 22%);
+  color: #fff;
+}

@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Compilados
+dist/
+build/
+*.tsbuildinfo
+
+# Cobertura y reportes de pruebas
+coverage/
+.nyc_output/
+junit.xml
+
+# Variables de entorno (nunca versionar credenciales)
+.env
+.env.local
+.env.*.local
+
+# Angular
+.angular/
+.nx/
+
+# Registros
+*.log
+npm-debug.log*
+logs/
+
+# Editores y sistema operativo
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

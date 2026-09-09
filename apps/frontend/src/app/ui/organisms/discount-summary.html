@@ -1,0 +1,35 @@
+<dl class="summary">
+  <div class="summary__row">
+    <dt>Subtotal original</dt>
+    <dd>{{ subtotalInCents() | cents }}</dd>
+  </div>
+
+  @for (line of lines(); track line.label) {
+    <div class="summary__row summary__row--discount">
+      <dt>{{ line.label }} <span class="summary__percentage">−{{ line.percentage }}%</span></dt>
+      <dd>−{{ line.amountInCents | cents }}</dd>
+    </div>
+  }
+
+  @if (capAdjustmentInCents() > 0) {
+    <div class="summary__row summary__row--adjustment">
+      <dt>
+        Ajuste por límite de descuento
+        <span class="summary__hint">el ahorro se trunca al máximo permitido</span>
+      </dt>
+      <dd>+{{ capAdjustmentInCents() | cents }}</dd>
+    </div>
+  }
+
+  @if (hasDiscounts()) {
+    <div class="summary__row summary__row--savings">
+      <dt>Ahorro total <span class="summary__percentage">{{ effectivePercentage() }}%</span></dt>
+      <dd>−{{ totalDiscountInCents() | cents }}</dd>
+    </div>
+  }
+
+  <div class="summary__row summary__row--total">
+    <dt>Total a pagar</dt>
+    <dd>{{ totalInCents() | cents }}</dd>
+  </div>
+</dl>

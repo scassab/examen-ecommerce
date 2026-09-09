@@ -1,0 +1,21 @@
+<p-card styleClass="product-card">
+  <ng-template #header>
+    <div class="product-card__badges">
+      <app-category-badge [category]="product().category" [label]="product().categoryName" />
+      <app-stock-badge [stock]="remainingStock()" />
+    </div>
+  </ng-template>
+
+  <h3 class="product-card__name">{{ product().name }}</h3>
+  <p class="product-card__price">{{ product().unitPriceInCents | cents }}</p>
+
+  <ng-template #footer>
+    <p-button
+      [label]="actionLabel()"
+      icon="pi pi-shopping-cart"
+      [disabled]="!canAdd()"
+      styleClass="w-full"
+      (onClick)="onAdd()"
+    />
+  </ng-template>
+</p-card>

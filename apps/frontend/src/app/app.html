@@ -1,0 +1,29 @@
+<header class="app-header">
+  <div class="app-header__inner">
+    <span class="app-header__brand">
+      <i class="pi pi-shopping-bag" aria-hidden="true"></i>
+      E-commerce
+    </span>
+
+    @if (isLanding()) {
+      <p-button
+        label="Iniciar sesión"
+        icon="pi pi-sign-in"
+        [text]="true"
+        styleClass="app-header__enter"
+        (onClick)="enterStore()"
+      />
+    } @else {
+      <span class="app-header__user">
+        <p-avatar [label]="user().initials" shape="circle" />
+        <span class="app-header__user-name">{{ user().name }}</span>
+      </span>
+    }
+  </div>
+</header>
+
+<main class="app-main">
+  <router-outlet />
+</main>
+
+<app-site-footer />

@@ -1,0 +1,47 @@
+.coupon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    input {
+      flex: 1 1 auto;
+      min-width: 0;
+      text-transform: uppercase;
+    }
+  }
+
+  &__applied {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+:host ::ng-deep {
+  .coupon__chip {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  // El color de la etiqueta refleja el veredicto del servidor: verde cuando el
+  // cupon se aplico y rojo cuando fue rechazado, sin repetir el mensaje.
+  .coupon__chip--applied {
+    background: var(--p-green-100, #dcfce7);
+    color: var(--p-green-800, #166534);
+  }
+
+  .coupon__chip--rejected {
+    background: var(--p-red-100, #fee2e2);
+    color: var(--p-red-800, #991b1b);
+  }
+}

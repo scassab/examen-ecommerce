@@ -1,0 +1,38 @@
+@if (order(); as confirmed) {
+  <p-dialog
+    header="¡Compra confirmada!"
+    [visible]="true"
+    [modal]="true"
+    [closable]="true"
+    [style]="{ width: '30rem', maxWidth: '92vw' }"
+    (visibleChange)="dismissed.emit()"
+  >
+    <p class="mb-3">
+      Tu orden quedó registrada con el identificador
+      <strong>{{ confirmed.id }}</strong>.
+    </p>
+
+    <ul class="list-none p-0 m-0">
+      @for (line of confirmed.summary.lines; track line.productId) {
+        <li class="flex justify-content-between py-1">
+          <span>{{ line.quantity }} × {{ line.name }}</span>
+          <span>{{ line.lineSubtotalInCents | cents }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="flex justify-content-between pt-3 mt-3 border-top-1 surface-border font-bold">
+      <span>Total pagado</span>
+      <span>{{ confirmed.summary.totalInCents | cents }}</span>
+    </div>
+
+    <p class="text-sm mt-2 mb-0">
+      Ahorraste {{ confirmed.summary.totalDiscountInCents | cents }}
+      ({{ confirmed.summary.effectiveDiscountPercentage }}%).
+    </p>
+
+    <ng-template #footer>
+      <p-button label="Seguir comprando" icon="pi pi-arrow-left" (onClick)="dismissed.emit()" />
+    </ng-template>
+  </p-dialog>
+}
